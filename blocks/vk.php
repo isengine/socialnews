@@ -11,17 +11,17 @@ use is\Masters\Modules\Master;
 use is\Masters\View;
 
 $data = [];
-$sets = &$object -> settings;
+$sets = &$this -> settings;
 
 //echo '<pre>';
-//echo print_r($object, 1);
+//echo print_r($this, 1);
 //exit;
 
-if (!System::typeIterable($object -> result['response']['items'])) {
+if (!System::typeIterable($this -> result['response']['items'])) {
 	return;
 }
 
-foreach ($object -> result['response']['items'] as $key => $item) {
+foreach ($this -> result['response']['items'] as $key => $item) {
 	
 	$skip = null;
 	
@@ -107,7 +107,7 @@ foreach ($object -> result['response']['items'] as $key => $item) {
 }
 
 if (System::typeIterable($data)) {
-	$object -> setData($data);
+	$this -> setData($data);
 }
 
 ?>

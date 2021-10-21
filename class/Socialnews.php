@@ -43,7 +43,7 @@ class Socialnews extends Master {
 		}
 		
 		$this -> result = json_decode($result, true);
-		$this -> blocks($sets['api']);
+		$this -> block($sets['api']);
 		
 	}
 	

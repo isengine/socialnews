@@ -11,13 +11,13 @@ use is\Masters\Modules\Master;
 use is\Masters\View;
 
 $data = [];
-$sets = &$object -> settings;
+$sets = &$this -> settings;
 
-if (!System::typeIterable($object -> result['data'])) {
+if (!System::typeIterable($this -> result['data'])) {
 	return;
 }
 
-foreach ($object -> result['data'] as $key => $item) {
+foreach ($this -> result['data'] as $key => $item) {
 	
 	if (isset($sets['disable']) && in_array($item['id'], $sets['disable'])) {
 		
@@ -59,7 +59,7 @@ foreach ($object -> result['data'] as $key => $item) {
 }
 
 if (System::typeIterable($data)) {
-	$object -> setData($data);
+	$this -> setData($data);
 }
 
 ?>
