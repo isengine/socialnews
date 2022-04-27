@@ -11,55 +11,47 @@ use is\Masters\Modules\Master;
 use is\Masters\View;
 
 $data = [];
-$sets = &$this -> settings;
+$sets = &$this->settings;
 
-if (!System::typeIterable($this -> result['data'])) {
-	return;
+if (!System::typeIterable($this->result['data'])) {
+    return;
 }
 
-foreach ($this -> result['data'] as $key => $item) {
-	
-	if (isset($sets['disable']) && in_array($item['id'], $sets['disable'])) {
-		
-		$sets['count']++;
-		
-	} elseif ($key < $sets['count']) {
-		
-		$item['type'] = mb_strtolower($item['media_type']);
-		
-		$data[$key] = [
-			'date' => strtotime($item['timestamp']) + 10800,
-			'text' => $item['caption'],
-			'link' => $item['permalink'],
-			'images' => []
-		];
-		
-		if ($item['type'] === 'image') {
-			$data[$key]['images'][] = $item['media_url'];
-		} elseif ($item['type'] === 'video') {
-			$data[$key]['images'] = [$item['thumbnail_url']];
-			$data[$key]['video'] = $item['media_url'];
-		} elseif ($item['type'] === 'carousel_album') {
-			if (System::typeIterable($item['children']['data'])) {
-				foreach ($item['children']['data'] as $images) {
-					$item['type'] = mb_strtolower($images['media_type']);
-					if ($item['type'] === 'image') {
-						$data[$key]['images'][] = $images['media_url'];
-					} elseif ($item['type'] === 'video') {
-						$data[$key]['images'] = [$images['thumbnail_url']];
-						$data[$key]['video'] = $images['media_url'];
-						break;
-					}
-				}
-			}
-		}
-		
-	}
-	
+foreach ($this->result['data'] as $key => $item) {
+    if (isset($sets['disable']) && in_array($item['id'], $sets['disable'])) {
+        $sets['count']++;
+    } elseif ($key < $sets['count']) {
+        $item['type'] = mb_strtolower($item['media_type']);
+
+        $data[$key] = [
+            'date' => strtotime($item['timestamp']) + 10800,
+            'text' => $item['caption'],
+            'link' => $item['permalink'],
+            'images' => []
+        ];
+
+        if ($item['type'] === 'image') {
+            $data[$key]['images'][] = $item['media_url'];
+        } elseif ($item['type'] === 'video') {
+            $data[$key]['images'] = [$item['thumbnail_url']];
+            $data[$key]['video'] = $item['media_url'];
+        } elseif ($item['type'] === 'carousel_album') {
+            if (System::typeIterable($item['children']['data'])) {
+                foreach ($item['children']['data'] as $images) {
+                    $item['type'] = mb_strtolower($images['media_type']);
+                    if ($item['type'] === 'image') {
+                        $data[$key]['images'][] = $images['media_url'];
+                    } elseif ($item['type'] === 'video') {
+                        $data[$key]['images'] = [$images['thumbnail_url']];
+                        $data[$key]['video'] = $images['media_url'];
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 if (System::typeIterable($data)) {
-	$this -> setData($data);
+    $this->setData($data);
 }
-
-?>
