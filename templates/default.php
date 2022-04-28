@@ -34,7 +34,7 @@ if (System::typeIterable($data)) {
             <img src="<?= $image; ?>">
         <?php endforeach; ?>
 
-        <?php if (isset($item['video'])) : ?>
+        <?php if (!empty($item['video'])) : ?>
             <a href="<?= $item['video']; ?>" target="_blank">смотреть видео</a>
         <?php endif; ?>
 

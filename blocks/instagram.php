@@ -18,7 +18,10 @@ if (!System::typeIterable($this->result['data'])) {
 }
 
 foreach ($this->result['data'] as $key => $item) {
-    if (isset($sets['disable']) && in_array($item['id'], $sets['disable'])) {
+    if (
+        !empty($sets['disable']) &&
+        in_array($item['id'], $sets['disable'])
+    ) {
         $sets['count']++;
     } elseif ($key < $sets['count']) {
         $item['type'] = mb_strtolower($item['media_type']);
